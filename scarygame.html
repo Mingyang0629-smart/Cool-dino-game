@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click on the screen</title>
+    
+</head>
+<body>
+    <style>
+        html {
+            background-color: black;
+        }
+        #Scary {
+            width: 100%;
+            position: relative;
+            top: -200px;
+            opacity: 0;
+        }
+        .click {
+            color: white;
+            text-align: center;
+            z-index: 2
+        }
+    </style>
+    <h1 id="text" class="click">Click on the screen</h1>
+    <video src="Jumpscare.mp4" id="Scary" >  </video>
+    <script>
+
+        let scary = document.getElementById("Scary")
+        var Alreadydone = true
+        let text = document.getElementById("text")
+        function jumpscare() {
+            scary.play()
+            setTimeout(jumpscare, 700)
+        }
+        document.addEventListener("click", function(){
+
+            if (Alreadydone == true) {scary.style = "opacity: 100;"
+            jumpscare()
+        Alreadydone = false}
+       
+        })
+    </script>
+</body>
+</html>

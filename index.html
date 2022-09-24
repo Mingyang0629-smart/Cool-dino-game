@@ -1,0 +1,152 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not a sussy link</title>
+</head>
+<body>
+    <style>
+        html {
+            background-color: pink;
+            
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+       
+        #game {
+            width: 800px;
+            height: 600px;
+            border: 2px solid black;
+            position: relative;
+            left: 25%;
+            margin-top: 100px;
+            padding: 0px;
+            
+        }
+
+        #player {
+            background-color: red;
+            width: 20px;
+            height: 50px;
+            position: absolute;
+            top: 550px;
+            left: 60px;
+            margin:  0px;
+            padding: 0px;
+            
+
+        }
+
+        .jump {
+            animation: 1s jump linear ;
+        }
+
+        #block {
+            background-color: blue;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 560px;
+            left: 760px;
+            transition: 1s;
+            margin:  0px;
+            padding: 0px;
+            
+        }
+
+        .blockmove {
+            animation: 3s moveleft linear infinite ;
+        }
+        .center {
+            text-align: center;
+            font-size: 50px;
+        }
+        @keyframes moveleft {
+            0% {
+                left: 760px;
+            }
+            100% {left: 0px}
+        }
+
+        @keyframes jump {
+            0% {
+                top: 550px;
+
+            }
+            50% {top: 450px;}
+            100% {top: 550px;}
+        }
+    </style>
+    <h1 class= "center" id="score">Score: 0</h1>
+   <div id="Game">
+    <div id="player">
+
+    </div>
+    <div class="blockmove" id="block"></div>
+    </div>
+   </div>
+   <audio  id="Jump" src="Jump.mp3"></audio>
+   <script>
+    let Game = document.getElementById("Game");
+    let player = document.getElementById("player");
+    let block = document.getElementById("block")
+    var canjump = true
+    var score = 0
+    let Jump = document.getElementById("Jump")
+    var gamestillplaying = true
+    let scoretext = document.getElementById("score")
+    function Increasescore( ) {
+        score += 1
+        scoretext.innerText = "Score: "+score
+    }
+
+    setInterval(() => {
+        if (score == 10000 && gamestillplaying == true) {
+            
+            location.replace("scarygame.html")
+        }
+    })
+
+    setInterval(() => {
+        if (gamestillplaying == true) {
+        Increasescore()
+        console.log(score)
+        }
+    }, 1);
+
+    
+    var checkdead = setInterval(function(){
+        var charactertop = 
+        parseInt(window.getComputedStyle(player).getPropertyValue("top"));
+        var blockleft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+        if (blockleft < 83 && blockleft> 0 && charactertop>= 550) {
+            gamestillplaying = false
+            alert("You lose")
+            block.classList.remove("blockmove")
+            location.reload()
+        }
+    })
+
+  
+    window.addEventListener("keydown", (event) => {
+        console.log(event)
+        if (event.code === "Space" && canjump == true)  {
+            player.classList.add("jump")
+            Jump.play()
+            canjump = false
+            function removejump() {
+                player.classList.remove("jump")
+                canjump = true
+            }
+            setTimeout(removejump, 1000);
+        }
+    })
+
+    
+   </script>
+</body>
+</html>
